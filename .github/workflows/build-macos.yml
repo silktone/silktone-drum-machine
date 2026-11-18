@@ -1,0 +1,138 @@
+# Silktone Drum Machine — macOS cloud build
+#
+# Builds the finished AU (.component), VST3 (.vst3) and Standalone (.app)
+# on a GitHub-hosted Mac (macos-14, Apple Silicon) and uploads them as
+# artifacts. No Mac, Xcode or Terminal needed on Joel's end.
+#
+# How to use (once this repo is on GitHub):
+#   1. Push this project to a GitHub repo.
+#   2. Open the repo's Actions tab -> "Build macOS plugins" -> Run workflow.
+#      (It also runs automatically on every push to main/master.)
+#   3. When the run finishes, download the "silktone-drum-machine-macos"
+#      artifact (a zip with the .component, .vst3, .app and the manual).
+#   4. Unzip and drop the bundles into the Plug-Ins folders — see README.md.
+#
+# The bundles this workflow produces are UNSIGNED (no Apple Developer ID
+# certificate is available in CI). That is fine for Joel's own Mac: Logic
+# loads an unsigned AU after a one-time right-click -> Open (see README.md).
+# For distribution to anyone else, add Developer ID signing + notarization
+# (needs an Apple Developer account and the signing secrets in the repo).
+#
+# AAX (Pro Tools) is NOT built by default. See docs/AAX.md — a retail Pro
+# Tools will refuse an unsigned .aaxplugin, so an AAX build is only useful
+# after the PACE signing steps in that file. The workflow can build an
+# UNSIGNED AAX for testing in Pro Tools Developer: run it manually with
+# the "build_aax" input set to true.
+
+name: Build macOS plugins
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+    inputs:
+      build_aax:
+        description: "Also build an UNSIGNED AAX (.aaxplugin) — loads only in Pro Tools Developer, NOT in retail Pro Tools. See docs/AAX.md."
+        type: boolean
+        default: false
+
+jobs:
+  build-macos:
+    name: AU + VST3 + Standalone (macos-14, arm64)
+    runs-on: macos-14
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Show toolchain
+        run: |
+          xcodebuild -version
+          cmake --version | head -1
+
+      - name: Configure (Xcode generator, Release)
+        run: cmake -S . -B build -G Xcode -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        run: cmake --build build --config Release --parallel 4
+
+      - name: Run the DSP test suite
+        run: ctest --test-dir build -C Release --output-on-failure
+        # The DSP test is the only part also verifiable on Linux; here it
+        # runs against the same sources that went into the plugin.
+
+      - name: List built bundles
+        run: |
+          find build/SilktoneDrumMachine_artefacts/Release -maxdepth 2 -print
+          test -d "build/SilktoneDrumMachine_artefacts/Release/AU/Silktone Drum Machine.component"
+          test -d "build/SilktoneDrumMachine_artefacts/Release/VST3/Silktone Drum Machine.vst3"
+          test -d "build/SilktoneDrumMachine_artefacts/Release/Standalone/Silktone Drum Machine.app"
+
+      - name: Validate the Audio Unit with auval
+        # auval is macOS's own AU validator (what Logic runs). It needs the
+        # bundle in the user Components folder to find it.
+        run: |
+          mkdir -p ~/Library/Audio/Plug-Ins/Components
+          cp -R "build/SilktoneDrumMachine_artefacts/Release/AU/Silktone Drum Machine.component" \
+                ~/Library/Audio/Plug-Ins/Components/
+          auval -v aumu SLM8 Sltn
+
+      - name: Package everything into one zip
+        if: always()
+        run: |
+          mkdir -p package
+          cp -R "build/SilktoneDrumMachine_artefacts/Release/AU/Silktone Drum Machine.component" package/ 2>/dev/null || true
+          cp -R "build/SilktoneDrumMachine_artefacts/Release/VST3/Silktone Drum Machine.vst3" package/ 2>/dev/null || true
+          cp -R "build/SilktoneDrumMachine_artefacts/Release/Standalone/Silktone Drum Machine.app" package/ 2>/dev/null || true
+          cp docs/Silktone-Drum-Machine-Manual.pdf package/ 2>/dev/null || true
+          cp README.md package/README.txt
+          cp WHERE-TO-PUT-EVERYTHING.txt package/
+          cd package && ditto -c -k --sequesterRsrc --keepParent . ../Silktone-Drum-Machine-macOS.zip
+
+      - name: Upload finished plugins
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: silktone-drum-machine-macos
+          path: Silktone-Drum-Machine-macOS.zip
+          if-no-files-found: error
+          retention-days: 90
+
+  build-aax:
+    name: AAX unsigned (Pro Tools Developer only)
+    runs-on: macos-14
+    # Only when manually requested. The output is UNSIGNED: retail Pro Tools
+    # will not load it. See docs/AAX.md for the PACE signing steps that
+    # turn it into a real Pro Tools plugin.
+    if: ${{ inputs.build_aax == true }}
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Configure with AAX enabled
+        run: cmake -S . -B build-aax -G Xcode -DCMAKE_BUILD_TYPE=Release -DSILKTONE_BUILD_AAX=ON
+
+      - name: Build AAX
+        run: cmake --build build-aax --config Release --parallel 4
+
+      - name: List built AAX bundle
+        run: |
+          find build-aax/SilktoneDrumMachine_artefacts/Release -maxdepth 2 -print
+          test -d "build-aax/SilktoneDrumMachine_artefacts/Release/AAX/Silktone Drum Machine.aaxplugin"
+
+      - name: Package unsigned AAX
+        if: always()
+        run: |
+          mkdir -p package-aax
+          cp -R "build-aax/SilktoneDrumMachine_artefacts/Release/AAX/Silktone Drum Machine.aaxplugin" package-aax/ 2>/dev/null || true
+          cp docs/AAX.md package-aax/AAX-README.md
+          cp WHERE-TO-PUT-EVERYTHING.txt package-aax/
+          cd package-aax && ditto -c -k --sequesterRsrc --keepParent . ../Silktone-Drum-Machine-AAX-UNSIGNED.zip
+
+      - name: Upload unsigned AAX
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: silktone-drum-machine-aax-unsigned
+          path: Silktone-Drum-Machine-AAX-UNSIGNED.zip
+          if-no-files-found: error
+          retention-days: 90

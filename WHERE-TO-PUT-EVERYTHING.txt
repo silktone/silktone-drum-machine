@@ -1,0 +1,31 @@
+WHERE TO PUT EVERYTHING — Silktone Drum Machine
+===============================================
+
+Just drag each file into the folder next to it. No installer, no Terminal.
+
+Silktone Drum Machine.component — Home > Library > Audio > Plug-Ins > Components
+Silktone Drum Machine.vst3 — Home > Library > Audio > Plug-Ins > VST3
+Silktone Drum Machine.app — Applications (or anywhere you like; double-click to open)
+Silktone Drum Machine.aaxplugin — Macintosh HD > Library > Application Support > Avid > Audio > Plug-Ins (only if this file is included)
+Logic Sampler instruments (.exs files) and their samples — Home > Music > Audio Music Apps > Sampler Instruments (only if these files are included)
+
+What each one is:
+- .component is the Audio Unit, for Logic Pro.
+- .vst3 is the VST3 version, for other music apps that use VST3.
+- .app is the Standalone version. It opens by itself, no music app needed.
+- .aaxplugin is the Pro Tools version. It only works in Pro Tools once it
+  has been signed — see the AAX notes that came with it.
+- .exs files are Logic Sampler instruments. Keep each .exs file together
+  with its samples in the same folder.
+
+How to find the Library folder in your home folder:
+The Library folder is hidden. In Finder, hold down the Option key, click
+the Go menu at the top of the screen, then click Library. Then open Audio,
+then Plug-Ins, then Components (or VST3).
+
+Presets and drum kits: nothing to place.
+The presets and drum kits are already built into the plugins, so there is
+nothing separate to put anywhere for those.
+
+After you drop the files in, quit Logic (or Pro Tools) and open it again,
+and the drum machine will show up.

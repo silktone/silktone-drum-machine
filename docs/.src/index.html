@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Silktone Drum Machine — User Manual</title>
+<style>
+  @page { size: Letter; margin: 0; }
+  * { box-sizing: border-box; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  body { margin: 0; font-family: 'Liberation Sans', 'Noto Sans', sans-serif; color: #2b1d12; }
+  .page { min-height: 11in; padding: 1.6cm 2cm; display: flow-root; }
+  h1 { font-size: 26pt; line-height: 1.15; margin: 0 0 4mm; color: #2b1d12; }
+  h1 .amber { color: #b97e0e; }
+  h2 { font-size: 14pt; margin: 5mm 0 2mm; color: #6b4423; border-bottom: 2px solid #f5a623; padding-bottom: 1mm; }
+  h3 { font-size: 11.5pt; margin: 4mm 0 1mm; color: #6b4423; }
+  p, li { font-size: 11pt; line-height: 1.45; margin: 0 0 2.5mm; }
+  ul, ol { padding-left: 6mm; margin: 0 0 3mm; }
+  .subtitle { font-size: 13pt; color: #6b4423; margin-bottom: 6mm; }
+  .cover-rule { height: 4px; background: #f5a623; margin: 6mm 0; }
+  .toc { background: #faf3e3; border: 1px solid #e0c98f; border-radius: 4px; padding: 4mm 5mm; margin: 5mm 0; }
+  .toc p { margin: 0 0 1.5mm; font-size: 11pt; }
+  .toc b { font-size: 12pt; }
+  table { width: 100%; border-collapse: collapse; margin: 2mm 0 4mm; font-size: 10.5pt; }
+  th, td { border: 1px solid #d8c49a; padding: 1.8mm 2.5mm; text-align: left; vertical-align: top; }
+  th { background: #3a2a1a; color: #f5e6c8; }
+  td:first-child { font-weight: bold; white-space: nowrap; }
+  .note { background: #faf3e3; border-left: 4px solid #f5a623; padding: 3mm 4mm; margin: 3mm 0; font-size: 10.5pt; line-height: 1.45; }
+  .footer { font-size: 9pt; color: #8a7355; margin-top: 8mm; border-top: 1px solid #d8c49a; padding-top: 2mm; }
+  .page-num { font-size: 9pt; color: #8a7355; text-align: right; margin-top: 6mm; }
+  section, table, .note, .toc { break-inside: avoid; page-break-inside: avoid; }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <h1>Silktone Drum Machine<br><span class="amber">User Manual</span></h1>
+  <p class="subtitle">Audio Unit for Logic Pro and VST3 &mdash; version 1.0</p>
+  <div class="cover-rule"></div>
+  <p>The Silktone Drum Machine is an instrument plugin. In Logic Pro, load it in an
+  <b>instrument slot</b> on a software instrument track, just like any synth. It makes
+  its own sound &mdash; it does not need an audio input to play.</p>
+  <p>When it opens you see the transport bar across the top and seven tabs underneath:
+  <b>Sequencer, Pads, Mixer, Sampler, Library, Stems, Export</b>.</p>
+  <p>Press <b>Play</b> to start. The pattern that loads by default is a house groove at
+  120 BPM. Press <b>Stop</b> to go back to the start. Press <b>Play</b> again while
+  playing to pause where you are; press it once more to pick up from there.</p>
+
+  <div class="toc">
+    <p><b>Contents</b></p>
+    <p>1. Getting started &nbsp;&middot;&nbsp; 2. The transport bar &nbsp;&middot;&nbsp; 3. Sequencer</p>
+    <p>4. Pads &nbsp;&middot;&nbsp; 5. Mixer &nbsp;&middot;&nbsp; 6. Sampler &nbsp;&middot;&nbsp; 7. Library</p>
+    <p>8. Stems &nbsp;&middot;&nbsp; 9. Export &nbsp;&middot;&nbsp; 10. Automation and saving</p>
+    <p>11. Troubleshooting &nbsp;&middot;&nbsp; 12. What the plugin is (and isn't)</p>
+  </div>
+
+  <h2>1. Getting started</h2>
+  <p><b>Install:</b> copy <i>Silktone Drum Machine.component</i> into
+  <i>~/Library/Audio/Plug-Ins/Components/</i> (Logic) or <i>Silktone Drum Machine.vst3</i>
+  into <i>~/Library/Audio/Plug-Ins/VST3/</i>. Restart Logic, or rescan in Plug-In Manager.
+  The Standalone app runs on its own with no DAW.</p>
+  <p><b>Following Logic:</b> by default the plugin follows Logic's tempo and transport.
+  Start Logic's transport and the drum machine starts with it, at Logic's tempo. To run
+  it at its own tempo, turn off <b>Sync to Host Tempo</b> and <b>Follow Host Transport</b>
+  (both are automatable parameters &mdash; see section 10).</p>
+  <div class="footer">Silktone Drum Machine &mdash; User Manual v1.0 &mdash; Sounds Good Ent.</div>
+  <div class="page-num">1</div>
+</div>
+
+<div class="page">
+  <h2>2. The transport bar (top)</h2>
+  <table>
+    <tr><th>Control</th><th>What it does</th></tr>
+    <tr><td>Play / Stop</td><td>Play / pause toggle, and stop (stop rewinds to step 1)</td></tr>
+    <tr><td>TAP</td><td>Tap it on the beat &mdash; the tempo follows your taps</td></tr>
+    <tr><td>BPM</td><td>Tempo, 40&ndash;300. Drag it, or type a number</td></tr>
+    <tr><td>Swing</td><td>How much the off-beats lag, 50% (straight) to 75%</td></tr>
+    <tr><td>16th / 8th</td><td>Which steps the swing moves</td></tr>
+    <tr><td>Time sig</td><td>4/4, 3/4, 5/4, 6/8, 7/8, 12/8. Changing it re-fits every row beat by beat, so a four-on-the-floor kick stays on the beat</td></tr>
+    <tr><td>Kit</td><td>The drum kit &mdash; 31 of them, from 808 and 909 to LinnDrum, DMX, SP-1200 and the acoustic kits</td></tr>
+    <tr><td>Pattern</td><td>166 ready-made patterns, grouped by style &mdash; Motown, funk, hip-hop, house, Afrobeat, Brazilian, Iranian, and more</td></tr>
+    <tr><td>Master</td><td>Overall volume</td></tr>
+    <tr><td>CLICK</td><td>Metronome on / off. A live guide only &mdash; it never appears in exports</td></tr>
+    <tr><td>?</td><td>This information, inside the plugin</td></tr>
+  </table>
+  <div class="page-num">2</div>
+</div>
+
+<div class="page">
+  <h2>3. Sequencer tab</h2>
+  <p>Thirty rows, one per voice, left to right in steps. A lit step plays; a dark step is silent.</p>
+  <ul>
+    <li><b>Click a step</b> to turn it on. Click it again and it becomes an <b>accent</b> (orange, hits harder). Click a third time to clear it.</li>
+    <li><b>Row name</b> &mdash; click it to hear that voice on its own.</li>
+    <li><b>M / S</b> &mdash; mute or solo the row.</li>
+    <li><b>Left / right arrows</b> &mdash; scroll the sound for that row through its whole family. A kick row walks through every kick in every kit; a snare row walks through every snare. The sound name in the Mixer tab updates to match.</li>
+    <li><b>CLR</b> &mdash; clear that row.</li>
+    <li><b>Copy row / Paste row</b> &mdash; pick the row in the dropdown, copy it, pick another row, paste it. <b>Clear all</b> empties the whole grid.</li>
+  </ul>
+  <p>The orange highlight shows the step that is playing right now.</p>
+
+  <h2>4. Pads tab</h2>
+  <p>Thirty pads, one per voice. <b>Tap a pad to play it.</b> Tap near the top of the pad for a hard hit, near the bottom for a soft one.</p>
+  <p><b>Right-click a pad</b> for a menu: favorite it, mute it, solo it, or clear the sample loaded on it. A star in the corner marks a favorite.</p>
+  <div class="page-num">3</div>
+</div>
+
+<div class="page">
+  <h2>5. Mixer tab</h2>
+  <p>One Logic-style strip per voice, left to right:</p>
+  <table>
+    <tr><th>Control</th><th>What it does</th></tr>
+    <tr><td>Fader</td><td>The voice's volume</td></tr>
+    <tr><td>PAN</td><td>Left / right</td></tr>
+    <tr><td>TONE</td><td>A tilt EQ. Turn it right for brighter, left for darker. (In the web app this knob did nothing &mdash; here it works.)</td></tr>
+    <tr><td>SAT</td><td>Saturation. A little adds warmth and grit; a lot distorts</td></tr>
+    <tr><td>REV / DLY</td><td>How much of this voice goes to the hall reverb and to the tempo-synced echo. These are sends, Logic-style: the dry sound stays, and the effect is added on top</td></tr>
+    <tr><td>M / S</td><td>Mute / solo the channel</td></tr>
+    <tr><td>AUX M / S</td><td>Mute the sends, or solo the sends (soloing the sends drops the dry signal, so you hear the effect only &mdash; live only)</td></tr>
+    <tr><td>Meter</td><td>The thin bar at the right of each strip shows the level</td></tr>
+  </table>
+  <p>Above the strips are the two <b>returns</b>: Reverb return (how loud the hall is overall) and Echo return (how loud the echo is overall).</p>
+  <div class="page-num">4</div>
+</div>
+
+<div class="page">
+  <h2>6. Sampler tab</h2>
+  <p>Put your own sounds on the pads.</p>
+  <p><b>Load a file:</b> pick a voice, press <b>Load audio file&hellip;</b>, choose any WAV, AIFF, MP3, FLAC or OGG. The sample replaces the synth sound for that voice. Press <b>Clear sample</b> to go back to the synth.</p>
+  <p><b>Record:</b> the plugin records from its <b>sidechain input</b>. In Logic, open the sidechain menu in the plugin header and choose your input &mdash; for example your Apollo / UAD input 1. (In the Standalone app, pick your interface in the audio settings.) Pick the voice, press <b>Record</b>, play or sing into the input &mdash; the INPUT meter shows the level &mdash; and press <b>Record</b> again to stop. The take lands on the voice as a sample.</p>
+  <p><b>Tempo lock:</b> when on, the sample plays in time with the tempo &mdash; a loop recorded at one tempo follows the plugin when the tempo changes.</p>
+  <p><b>Chop:</b> splits a sample into slices you can send to pads.</p>
+  <ol>
+    <li>Pick the voice with the sample.</li>
+    <li>Choose <b>Transient</b> (cut where the sound attacks) or <b>Meter / grid</b> (cut on the bar, half bar, beat, eighth or sixteenth).</li>
+    <li>Pick a sensitivity &mdash; Gentle, Balanced or Fine.</li>
+    <li>Press <b>Chop sample</b>. The slices appear in the list.</li>
+    <li>Pick a slice, pick a target voice, press <b>Send selected slice to pad</b>.</li>
+  </ol>
+  <p>The slice keeps the tempo-lock setting of the sample it came from.</p>
+  <div class="page-num">5</div>
+</div>
+
+<div class="page">
+  <h2>7. Library tab</h2>
+  <p>Your own drum sounds, searchable.</p>
+  <ol>
+    <li>Press <b>Scan a folder&hellip;</b> and choose a folder of drum sounds on your Mac. The plugin walks the folder (including subfolders) and sorts every file into a voice by its name &mdash; kicks, snares, hats, toms, congas, tombak, darbuka, and so on.</li>
+    <li>Type in the search box to narrow the list, or tick <b>Favorites only</b>.</li>
+    <li>Pick a voice, select a sound, press <b>Load selected onto voice</b> &mdash; or double-click a sound to load it straight onto the chosen voice.</li>
+    <li><b>Favorite</b> stars the selected sound so you can find it again.</li>
+  </ol>
+
+  <h2>8. Stems tab</h2>
+  <p>Drop in a full song or a drum loop and split it into six parts:</p>
+  <table>
+    <tr><th>Stem</th><th>What it holds</th></tr>
+    <tr><td>Low</td><td>Kick and low end (below ~150 Hz)</td></tr>
+    <tr><td>Snare &amp; Clap</td><td>The backbeat body (~180 Hz to 1 kHz)</td></tr>
+    <tr><td>Percussion</td><td>Shakers, congas, mid instruments (~1&ndash;6.5 kHz)</td></tr>
+    <tr><td>Hats &amp; Cymbals</td><td>Top-end air (above ~6.5 kHz)</td></tr>
+    <tr><td>Centre</td><td>Whatever sits in the middle of the stereo image &mdash; usually the vocal</td></tr>
+    <tr><td>Sides</td><td>The stereo sides only &mdash; wide parts, doubles, reverb tails</td></tr>
+  </table>
+  <div class="note"><b>This is a frequency-band filter split, not AI separation.</b> It is useful for grabbing a kick, a hat, or a vocal-ish centre out of a loop &mdash; it will not cleanly isolate a single instrument the way a dedicated AI stem tool does.</div>
+  <p>For each stem you can <b>Play</b> it, <b>Export WAV</b>, or send it straight to a pad (pick the voice, press the arrow button).</p>
+
+  <h2>9. Export tab</h2>
+  <ul>
+    <li><b>Export MIDI (.mid)</b> &mdash; the pattern as MIDI notes on channel 10, 96 ticks per quarter note. Drop it into Logic and it will play any drum instrument.</li>
+    <li><b>Export loop WAV (4 bars)</b> &mdash; the pattern rendered as a stereo WAV, 4 bars plus a short tail. No click, no sends on the render &mdash; the dry pattern.</li>
+    <li><b>Export per-voice stems (.zip)</b> &mdash; one dry WAV per sounding voice, zipped.</li>
+  </ul>
+  <div class="page-num">6</div>
+</div>
+
+<div class="page">
+  <h2>10. Automation and saving</h2>
+  <p>These can be automated from Logic, and they are saved with the project:</p>
+  <ul>
+    <li>Tempo, Swing, Swing Interval, Time Signature, Kit, Master Volume, Click, Reverb Return, Echo Return, Sync to Host, Follow Host Transport, MIDI Out</li>
+    <li>Per voice: Volume, Tune, Pan, Tone, Saturation, Send Reverb, Send Echo</li>
+  </ul>
+  <p>The pattern itself &mdash; steps, accents, mute/solo, favorites, and any samples you loaded &mdash; is saved with the Logic project (or the plugin's own preset), not as automation. Samples are stored inside the saved state, so a project reopens with its sounds intact.</p>
+  <p><b>MIDI Out:</b> when on, the plugin also sends the pattern out as MIDI notes on channel 10, so Logic can record the groove or drive another drum instrument with it.</p>
+
+  <h2>11. Troubleshooting</h2>
+  <table>
+    <tr><th>Problem</th><th>Try this</th></tr>
+    <tr><td>No sound</td><td>Check the track is record-enabled or monitored, the Master volume is up, and no channel is soloed by accident. The click is live-only.</td></tr>
+    <tr><td>Logic doesn't list the plugin</td><td>Check the bundle is in ~/Library/Audio/Plug-Ins/Components/, then open Logic's Plug-In Manager and rescan. In Terminal, <i>auval -v aumu SLM8 Sltn</i> shows the validation result.</td></tr>
+    <tr><td>Recording hears nothing</td><td>The sidechain must be set in the plugin header (Logic) or the audio device in the settings (Standalone), and the input must be live. Watch the INPUT meter in the Sampler tab.</td></tr>
+    <tr><td>A sample plays at the wrong speed</td><td>Turn Tempo lock on and make sure the tempo matches the tempo the loop was recorded at; or turn it off to play the sample at its natural speed.</td></tr>
+    <tr><td>The stem split sounds rough</td><td>That is expected &mdash; it is a filter split, not AI. The Low stem is the cleanest; Centre and Sides are the roughest.</td></tr>
+  </table>
+  <div class="page-num">7</div>
+</div>
+
+<div class="page">
+  <h2>12. What the plugin is (and isn't)</h2>
+  <ul>
+    <li>It is the Silktone drum machine as a native instrument: same 30 voices, 31 kits, 166 patterns, same sequencer, mixer, sampler, library and exports.</li>
+    <li>The reverb is an algorithmic hall, not the web app's impulse convolver &mdash; close in character, not bit-identical.</li>
+    <li>The TONE knob works here; in the web app it did nothing.</li>
+    <li>Favorites are saved with the session here; in the web app they lasted only until the page was closed.</li>
+    <li>There is no gain knob &mdash; Joel asked for one, then dropped it.</li>
+  </ul>
+  <div class="footer">Built for Joel Thomas Whitley (Silktone) &mdash; Sounds Good Ent. &mdash; Silktone Drum Machine v1.0</div>
+  <div class="page-num">8</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,280 @@
+{
+  "ok": true,
+  "pdf": "/home/hatch/workspace/drum-machine-plugin/docs/Silktone-Drum-Machine-Manual.pdf",
+  "pages": 0,
+  "pngs": [],
+  "fonts": {
+    "missing": [],
+    "unused": [],
+    "used": [
+      "Liberation Sans"
+    ],
+    "expected": [
+      "Liberation Sans:400",
+      "Liberation Sans:700"
+    ]
+  },
+  "overflow": [],
+  "text_floor": [
+    {
+      "index": 0,
+      "runs": [
+        {
+          "pt": 9,
+          "chars": 50,
+          "max_node_chars": 49,
+          "sample": "Silktone Drum Machine — User Manual v1.0"
+        },
+        {
+          "pt": 11,
+          "chars": 1095,
+          "max_node_chars": 144,
+          "sample": "The Silktone Drum Machine is an instrume"
+        },
+        {
+          "pt": 12,
+          "chars": 8,
+          "max_node_chars": 8,
+          "sample": "Contents"
+        },
+        {
+          "pt": 13,
+          "chars": 38,
+          "max_node_chars": 38,
+          "sample": "Audio Unit for Logic Pro and VST3 — vers"
+        },
+        {
+          "pt": 14,
+          "chars": 16,
+          "max_node_chars": 16,
+          "sample": "1. Getting started"
+        },
+        {
+          "pt": 26,
+          "chars": 29,
+          "max_node_chars": 19,
+          "sample": "Silktone Drum Machine"
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "runs": [
+        {
+          "pt": 9,
+          "chars": 1,
+          "max_node_chars": 1,
+          "sample": "2"
+        },
+        {
+          "pt": 10.5,
+          "chars": 620,
+          "max_node_chars": 99,
+          "sample": "Control"
+        },
+        {
+          "pt": 14,
+          "chars": 22,
+          "max_node_chars": 22,
+          "sample": "2. The transport bar (top)"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "runs": [
+        {
+          "pt": 9,
+          "chars": 1,
+          "max_node_chars": 1,
+          "sample": "3"
+        },
+        {
+          "pt": 11,
+          "chars": 779,
+          "max_node_chars": 159,
+          "sample": "Thirty rows, one per voice, left to righ"
+        },
+        {
+          "pt": 14,
+          "chars": 23,
+          "max_node_chars": 14,
+          "sample": "3. Sequencer tab"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "runs": [
+        {
+          "pt": 9,
+          "chars": 1,
+          "max_node_chars": 1,
+          "sample": "4"
+        },
+        {
+          "pt": 10.5,
+          "chars": 501,
+          "max_node_chars": 129,
+          "sample": "Control"
+        },
+        {
+          "pt": 11,
+          "chars": 147,
+          "max_node_chars": 77,
+          "sample": "One Logic-style strip per voice, left to"
+        },
+        {
+          "pt": 14,
+          "chars": 10,
+          "max_node_chars": 10,
+          "sample": "5. Mixer tab"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "runs": [
+        {
+          "pt": 9,
+          "chars": 1,
+          "max_node_chars": 1,
+          "sample": "5"
+        },
+        {
+          "pt": 11,
+          "chars": 975,
+          "max_node_chars": 171,
+          "sample": "Put your own sounds on the pads."
+        },
+        {
+          "pt": 14,
+          "chars": 12,
+          "max_node_chars": 12,
+          "sample": "6. Sampler tab"
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "runs": [
+        {
+          "pt": 9,
+          "chars": 1,
+          "max_node_chars": 1,
+          "sample": "6"
+        },
+        {
+          "pt": 10.5,
+          "chars": 464,
+          "max_node_chars": 132,
+          "sample": "Stem"
+        },
+        {
+          "pt": 11,
+          "chars": 858,
+          "max_node_chars": 172,
+          "sample": "Your own drum sounds, searchable."
+        },
+        {
+          "pt": 14,
+          "chars": 33,
+          "max_node_chars": 12,
+          "sample": "7. Library tab"
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "runs": [
+        {
+          "pt": 9,
+          "chars": 1,
+          "max_node_chars": 1,
+          "sample": "7"
+        },
+        {
+          "pt": 10.5,
+          "chars": 726,
+          "max_node_chars": 143,
+          "sample": "Problem"
+        },
+        {
+          "pt": 11,
+          "chars": 587,
+          "max_node_chars": 214,
+          "sample": "These can be automated from Logic, and t"
+        },
+        {
+          "pt": 14,
+          "chars": 40,
+          "max_node_chars": 22,
+          "sample": "10. Automation and saving"
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "runs": [
+        {
+          "pt": 9,
+          "chars": 75,
+          "max_node_chars": 74,
+          "sample": "Built for Joel Thomas Whitley (Silktone)"
+        },
+        {
+          "pt": 11,
+          "chars": 394,
+          "max_node_chars": 124,
+          "sample": "It is the Silktone drum machine as a nat"
+        },
+        {
+          "pt": 14,
+          "chars": 28,
+          "max_node_chars": 28,
+          "sample": "12. What the plugin is (and isn't)"
+        }
+      ]
+    }
+  ],
+  "image_resolution": [
+    {
+      "index": 0,
+      "images": []
+    },
+    {
+      "index": 1,
+      "images": []
+    },
+    {
+      "index": 2,
+      "images": []
+    },
+    {
+      "index": 3,
+      "images": []
+    },
+    {
+      "index": 4,
+      "images": []
+    },
+    {
+      "index": 5,
+      "images": []
+    },
+    {
+      "index": 6,
+      "images": []
+    },
+    {
+      "index": 7,
+      "images": []
+    }
+  ],
+  "geometry": {
+    "failures": [],
+    "advisories": []
+  },
+  "gate_failures": [],
+  "advisories": []
+}

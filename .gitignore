@@ -1,0 +1,9 @@
+# Build outputs — never commit these
+build/
+build-*/
+build-linux/
+*.component
+*.vst3
+*.aaxplugin
+*.app
+DerivedData/
