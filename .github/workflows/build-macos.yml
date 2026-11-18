@@ -69,11 +69,17 @@ jobs:
 
       - name: Validate the Audio Unit with auval
         # auval is macOS's own AU validator (what Logic runs). It needs the
-        # bundle in the user Components folder to find it.
+        # bundle in the user Components folder to find it. The system
+        # AudioComponentRegistrar can hold a stale cache of the Components
+        # folder, so kill it first to force a rescan — otherwise auval
+        # fails with "didn't find the component" even though the bundle
+        # is present and correct.
         run: |
           mkdir -p ~/Library/Audio/Plug-Ins/Components
           cp -R "build/SilktoneDrumMachine_artefacts/Release/AU/Silktone Drum Machine.component" \
                 ~/Library/Audio/Plug-Ins/Components/
+          killall -9 AudioComponentRegistrar 2>/dev/null || true
+          sleep 3
           auval -v aumu SLM8 Sltn
 
       - name: Package everything into one zip

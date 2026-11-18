@@ -227,18 +227,32 @@ void SilktoneDrumMachineAudioProcessor::processBlock(juce::AudioBuffer<float>& b
     }
 
     auto outBus = getBusBuffer(buffer, false, 0);
-    engine_.processBlock(outBus.getWritePointer(0), outBus.getWritePointer(1),
-                         buffer.getNumSamples(), sideL, sideR);
+    const int numOutChannels = outBus.getNumChannels();
+    if (numOutChannels >= 2) {
+        engine_.processBlock(outBus.getWritePointer(0), outBus.getWritePointer(1),
+                             buffer.getNumSamples(), sideL, sideR);
+    } else if (numOutChannels == 1) {
+        // Mono output bus (auval's 1-channel test, a mono Logic track):
+        // the engine renders stereo, so render to scratch and fold the
+        // left channel out.
+        const int n = buffer.getNumSamples();
+        monoOutL_.assign((size_t)n, 0.0f);
+        monoOutR_.assign((size_t)n, 0.0f);
+        engine_.processBlock(monoOutL_.data(), monoOutR_.data(), n, sideL, sideR);
+        float* dst = outBus.getWritePointer(0);
+        for (int i = 0; i < n; ++i) dst[i] = monoOutL_[(size_t)i];
+    }
 
     // Stem / sample preview player, mixed over the output.
     if (previewing_.load() && previewBuffer_.getNumSamples() > 0) {
         int pos = previewPos_.load();
         int n = buffer.getNumSamples();
         float* oL = outBus.getWritePointer(0);
-        float* oR = outBus.getWritePointer(1);
+        float* oR = numOutChannels >= 2 ? outBus.getWritePointer(1) : nullptr;
         for (int i = 0; i < n && pos < previewBuffer_.getNumSamples(); ++i, ++pos) {
             oL[i] += previewBuffer_.getSample(0, pos) * 0.8f;
-            oR[i] += previewBuffer_.getSample(previewBuffer_.getNumChannels() > 1 ? 1 : 0, pos) * 0.8f;
+            if (oR != nullptr)
+                oR[i] += previewBuffer_.getSample(previewBuffer_.getNumChannels() > 1 ? 1 : 0, pos) * 0.8f;
         }
         previewPos_.store(pos);
         if (pos >= previewBuffer_.getNumSamples()) previewing_.store(false);

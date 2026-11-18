@@ -121,6 +121,10 @@ private:
 
     // Preview player state (audio thread reads, message thread writes).
     juce::AudioBuffer<float> previewBuffer_;
+    // Mono-output scratch: the engine renders stereo. On a mono output bus
+    // (auval's 1-channel test, a mono Logic track) we render here and fold
+    // the left channel out.
+    std::vector<float> monoOutL_, monoOutR_;
     std::atomic<int> previewPos_{ 0 };
     std::atomic<bool> previewing_{ false };
     std::atomic<float> inputLevel_{ 0 };
