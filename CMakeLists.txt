@@ -71,7 +71,7 @@ juce_add_plugin(SilktoneDrumMachine
     NEEDS_MIDI_OUTPUT TRUE
     IS_MIDI_EFFECT FALSE
     EDITOR_WANTS_KEYBOARD_FOCUS FALSE
-    AU_MAIN_TYPE aumu
+    AU_MAIN_TYPE kAudioUnitType_MusicDevice  # JUCE 8 wants the kAudioUnitType_* name, not the four-char code (aumu left JUCE_AU_MAIN_TYPE_CODE unset and the AU build failed)
     VST3_CATEGORIES Instrument
     AAX_CATEGORY AAX_ePlugInCategory_SWGenerators
     AU_EXPORT_PREFIX SilktoneDrumMachineAU
