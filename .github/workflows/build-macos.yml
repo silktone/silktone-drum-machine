@@ -1,7 +1,7 @@
 # Silktone Drum Machine — macOS cloud build
 #
 # Builds the finished AU (.component), VST3 (.vst3) and Standalone (.app)
-# on a GitHub-hosted Mac (macos-15, Apple Silicon) and uploads them as
+# on a GitHub-hosted Mac (macos-26, Apple Silicon) and uploads them as
 # artifacts. No Mac, Xcode or Terminal needed on Joel's end.
 #
 # How to use (once this repo is on GitHub):
@@ -38,8 +38,8 @@ on:
 
 jobs:
   build-macos:
-    name: AU + VST3 + Standalone (macos-15, arm64)
-    runs-on: macos-15
+    name: AU + VST3 + Standalone (macos-26, arm64)
+    runs-on: macos-26
     steps:
       - name: Check out
         uses: actions/checkout@v4
@@ -125,7 +125,7 @@ jobs:
 
   build-aax:
     name: AAX unsigned (Pro Tools Developer only)
-    runs-on: macos-15
+    runs-on: macos-26
     # Only when manually requested. The output is UNSIGNED: retail Pro Tools
     # will not load it. See docs/AAX.md for the PACE signing steps that
     # turn it into a real Pro Tools plugin.
